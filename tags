@@ -1,0 +1,399 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ALIGN_OFF_MAX	src/tagmap.h	77;"	d
+ARCH	src/Makefile	/^ARCH=$(shell uname -m | grep 86$$)			# arch$/;"	m
+ARCH	tools/Makefile	/^ARCH=$(shell uname -m | grep 86$$)			# arch$/;"	m
+ARFLAGS	src/Makefile	/^ARFLAGS		= rcsv$/;"	m
+ASSERT_FAST	src/tagmap.h	78;"	d
+BIT2BYTE	src/libdft_core.h	45;"	d
+BITMAP_SZ	src/tagmap.h	60;"	d
+BYTE_MASK	src/tagmap.h	62;"	d
+CLEAR_EFLAGS_AC	src/libdft_api.h	67;"	d
+DLIB_SUFF	tools/libdft-dta.c	61;"	d	file:
+DLIB_SUFF_ALT	tools/libdft-dta.c	62;"	d	file:
+EFLAGS_DF	src/libdft_core.h	48;"	d
+GRP_NUM	src/libdft_api.h	64;"	d
+INSDFL_DISABLE	src/libdft_api.h	/^\/* #define *\/ INSDFL_DISABLE	= 1$/;"	e	enum:__anon3
+INSDFL_ENABLE	src/libdft_api.h	/^\/* #define *\/ INSDFL_ENABLE	= 0,$/;"	e	enum:__anon3
+IPC_FIX	src/syscall_desc.h	190;"	d
+KERN_VER	src/Makefile	/^KERN_VER=$(join $(word 1,$(KVER)),$(join $(word 2,$(KVER)),$(word 3,$(KVER))))$/;"	m
+KVER	src/Makefile	/^KVER=$(subst -, ,$(subst ., ,$(shell uname -r)))	# kernel version (temp)$/;"	m
+LIB	src/Makefile	/^LIB		= libdft.a$/;"	m
+LOGFILE_DFL	tools/libdft-dta.c	58;"	d	file:
+LONG_MASK	src/tagmap.h	64;"	d
+MAP_8H_16	src/libdft_core.c	/^static uint32_t	MAP_8H_16[] = {0, 0, VCPU_MASK16};$/;"	v	file:
+MAP_8H_32	src/libdft_core.c	/^static uint32_t	MAP_8H_32[] = {0, 0, VCPU_MASK32};$/;"	v	file:
+MAP_8L_16	src/libdft_core.c	/^static uint32_t	MAP_8L_16[] = {0, VCPU_MASK16};$/;"	v	file:
+MAP_8L_32	src/libdft_core.c	/^static uint32_t	MAP_8L_32[] = {0, VCPU_MASK32};$/;"	v	file:
+MAP_FLAGS	src/tagmap.c	49;"	d	file:
+MAP_FLAGS	src/tagmap.c	51;"	d	file:
+MAP_HUGETLB	src/tagmap.c	47;"	d	file:
+MEM_BYTE_LEN	src/libdft_core.h	44;"	d
+MEM_LONG_LEN	src/libdft_core.h	42;"	d
+MEM_WORD_LEN	src/libdft_core.h	43;"	d
+MSGCTL	src/syscall_desc.h	187;"	d
+MSGRCV	src/syscall_desc.h	186;"	d
+OBJS	src/Makefile	/^OBJS		= libdft_api.o libdft_core.o syscall_desc.o tagmap.o$/;"	m
+OBJS	tools/Makefile	/^OBJS		= nullpin.o libdft.o libdft-dta.o$/;"	m
+OP_0	src/libdft_core.h	/^\/* #define *\/ OP_0 = 0,			\/* 0th (1st) operand index *\/$/;"	e	enum:__anon8
+OP_1	src/libdft_core.h	/^\/* #define *\/ OP_1 = 1,			\/* 1st (2nd) operand index *\/$/;"	e	enum:__anon8
+OP_2	src/libdft_core.h	/^\/* #define *\/ OP_2 = 2,			\/* 2nd (3rd) operand index *\/$/;"	e	enum:__anon8
+OP_3	src/libdft_core.h	/^\/* #define *\/ OP_3 = 3,			\/* 3rd (4th) operand index *\/$/;"	e	enum:__anon8
+OP_4	src/libdft_core.h	/^\/* #define *\/ OP_4 = 4			\/* 4rd (5th) operand index *\/$/;"	e	enum:__anon8
+OS	src/Makefile	/^OS=$(shell uname -o | grep Linux$$)			# OS$/;"	m
+OS	tools/Makefile	/^OS=$(shell uname -o | grep Linux$$)			# OS$/;"	m
+PAGE_SZ	src/syscall_desc.h	213;"	d
+QUAD_MASK	src/tagmap.h	65;"	d
+Q_GETFMT	src/syscall_desc.h	104;"	d
+Q_GETINFO	src/syscall_desc.h	105;"	d
+Q_GETQUOTA	src/syscall_desc.h	106;"	d
+Q_SETQUOTA	src/syscall_desc.h	107;"	d
+Q_XGETQSTAT	src/syscall_desc.h	110;"	d
+Q_XGETQUOTA	src/syscall_desc.h	109;"	d
+R32_ALIGN	src/libdft_core.h	36;"	d
+REG16_INDX	src/libdft_api.c	/^REG16_INDX(REG reg)$/;"	f
+REG32_INDX	src/libdft_api.c	/^REG32_INDX(REG reg)$/;"	f
+REG8_INDX	src/libdft_api.c	/^REG8_INDX(REG reg)$/;"	f
+SEMCTL	src/syscall_desc.h	185;"	d
+SHMCTL	src/syscall_desc.h	188;"	d
+SOBJS	tools/Makefile	/^SOBJS		= $(OBJS:.o=.so)$/;"	m
+SYSCALL_ARG0	src/libdft_api.h	/^\/* #define *\/ SYSCALL_ARG0 = 0,			\/* 1st argument in syscall *\/$/;"	e	enum:__anon2
+SYSCALL_ARG1	src/libdft_api.h	/^\/* #define *\/ SYSCALL_ARG1 = 1,			\/* 2nd argument in syscall *\/$/;"	e	enum:__anon2
+SYSCALL_ARG2	src/libdft_api.h	/^\/* #define *\/ SYSCALL_ARG2 = 2,			\/* 3rd argument in syscall *\/$/;"	e	enum:__anon2
+SYSCALL_ARG3	src/libdft_api.h	/^\/* #define *\/ SYSCALL_ARG3 = 3,			\/* 4th argument in syscall *\/$/;"	e	enum:__anon2
+SYSCALL_ARG4	src/libdft_api.h	/^\/* #define *\/ SYSCALL_ARG4 = 4,			\/* 5th argument in syscall *\/$/;"	e	enum:__anon2
+SYSCALL_ARG5	src/libdft_api.h	/^\/* #define *\/ SYSCALL_ARG5 = 5,			\/* 6th argument in syscall *\/$/;"	e	enum:__anon2
+SYSCALL_ARG_NUM	src/libdft_api.h	/^\/* #define *\/ SYSCALL_ARG_NUM = 6		\/* syscall arguments *\/$/;"	e	enum:__anon2
+SYSCALL_MAX	src/libdft_api.h	44;"	d
+SYSCALL_MAX	src/libdft_api.h	47;"	d
+SYSCALL_MAX	src/libdft_api.h	49;"	d
+SYSCALL_MAX	src/libdft_api.h	51;"	d
+SYSCALL_MAX	src/libdft_api.h	53;"	d
+SYSCALL_MAX	src/libdft_api.h	56;"	d
+SYSCALL_MAX	src/libdft_api.h	59;"	d
+SYSCALL_MAX	src/libdft_api.h	61;"	d
+SYS_ACCEPT	src/syscall_desc.h	199;"	d
+SYS_ACCEPT4	src/syscall_desc.h	207;"	d
+SYS_GETPEERNAME	src/syscall_desc.h	201;"	d
+SYS_GETSOCKNAME	src/syscall_desc.h	200;"	d
+SYS_GETSOCKOPT	src/syscall_desc.h	205;"	d
+SYS_RECV	src/syscall_desc.h	203;"	d
+SYS_RECVFROM	src/syscall_desc.h	204;"	d
+SYS_RECVMMSG	src/syscall_desc.h	209;"	d
+SYS_RECVMSG	src/syscall_desc.h	206;"	d
+SYS_SOCKET	tools/libdft-dta.c	55;"	d	file:
+SYS_SOCKETPAIR	src/syscall_desc.h	202;"	d
+VCPU_MASK16	src/libdft_core.h	40;"	d
+VCPU_MASK32	src/libdft_core.h	39;"	d
+VCPU_MASK8	src/libdft_core.h	41;"	d
+VIRT2BIT	src/tagmap.h	75;"	d
+VIRT2BYTE	src/tagmap.h	72;"	d
+WORD_LEN	tools/libdft-dta.c	54;"	d	file:
+WORD_MASK	src/tagmap.h	63;"	d
+XQM_CMD	src/syscall_desc.h	108;"	d
+_3BYTE_MASK	src/tagmap.h	66;"	d
+_5BYTE_MASK	src/tagmap.h	67;"	d
+_6BYTE_MASK	src/tagmap.h	68;"	d
+_7BYTE_MASK	src/tagmap.h	69;"	d
+__BRANCH_PRED_H__	src/branch_pred.h	34;"	d
+__LIBDFT_API_H__	src/libdft_api.h	34;"	d
+__LIBDFT_CORE_H__	src/libdft_core.h	34;"	d
+__SYSCALL_DESC_H__	src/syscall_desc.h	34;"	d
+__TAGMAP_H__	src/tagmap.h	41;"	d
+__buf	src/syscall_desc.h	/^	struct seminfo	*__buf;$/;"	m	union:semun	typeref:struct:semun::seminfo
+__user_cap_data_struct	src/syscall_desc.h	/^typedef struct __user_cap_data_struct {$/;"	s
+__user_cap_header_struct	src/syscall_desc.h	/^typedef struct __user_cap_header_struct {$/;"	s
+_cmpxchg_m2r_opl_fast	src/libdft_core.c	/^_cmpxchg_m2r_opl_fast(thread_ctx_t *thread_ctx, uint32_t dst_val, ADDRINT src)$/;"	f	file:
+_cmpxchg_m2r_opw_fast	src/libdft_core.c	/^_cmpxchg_m2r_opw_fast(thread_ctx_t *thread_ctx, uint16_t dst_val, ADDRINT src)$/;"	f	file:
+_cmpxchg_r2m_opl_slow	src/libdft_core.c	/^_cmpxchg_r2m_opl_slow(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+_cmpxchg_r2m_opw_slow	src/libdft_core.c	/^_cmpxchg_r2m_opw_slow(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+_cmpxchg_r2r_opl_fast	src/libdft_core.c	/^_cmpxchg_r2r_opl_fast(thread_ctx_t *thread_ctx, uint32_t dst_val, uint32_t src,$/;"	f	file:
+_cmpxchg_r2r_opl_slow	src/libdft_core.c	/^_cmpxchg_r2r_opl_slow(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_cmpxchg_r2r_opw_fast	src/libdft_core.c	/^_cmpxchg_r2r_opw_fast(thread_ctx_t *thread_ctx, uint16_t dst_val, uint32_t src,$/;"	f	file:
+_cmpxchg_r2r_opw_slow	src/libdft_core.c	/^_cmpxchg_r2r_opw_slow(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_cwde	src/libdft_core.c	/^_cwde(thread_ctx_t *thread_ctx)$/;"	f	file:
+_lea_r2r_opl	src/libdft_core.c	/^_lea_r2r_opl(thread_ctx_t *thread_ctx,$/;"	f	file:
+_lea_r2r_opw	src/libdft_core.c	/^_lea_r2r_opw(thread_ctx_t *thread_ctx,$/;"	f	file:
+_movsx_m2r_oplb	src/libdft_core.c	/^_movsx_m2r_oplb(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_movsx_m2r_oplw	src/libdft_core.c	/^_movsx_m2r_oplw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movsx_m2r_opwb	src/libdft_core.c	/^_movsx_m2r_opwb(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_movsx_r2r_oplb_l	src/libdft_core.c	/^_movsx_r2r_oplb_l(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movsx_r2r_oplb_u	src/libdft_core.c	/^_movsx_r2r_oplb_u(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movsx_r2r_oplw	src/libdft_core.c	/^_movsx_r2r_oplw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movsx_r2r_opwb_l	src/libdft_core.c	/^_movsx_r2r_opwb_l(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movsx_r2r_opwb_u	src/libdft_core.c	/^_movsx_r2r_opwb_u(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movzx_m2r_oplb	src/libdft_core.c	/^_movzx_m2r_oplb(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_movzx_m2r_oplw	src/libdft_core.c	/^_movzx_m2r_oplw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movzx_m2r_opwb	src/libdft_core.c	/^_movzx_m2r_opwb(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_movzx_r2r_oplb_l	src/libdft_core.c	/^_movzx_r2r_oplb_l(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movzx_r2r_oplb_u	src/libdft_core.c	/^_movzx_r2r_oplb_u(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movzx_r2r_oplw	src/libdft_core.c	/^_movzx_r2r_oplw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movzx_r2r_opwb_l	src/libdft_core.c	/^_movzx_r2r_opwb_l(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_movzx_r2r_opwb_u	src/libdft_core.c	/^_movzx_r2r_opwb_u(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xadd_r2m_opb_l	src/libdft_core.c	/^_xadd_r2m_opb_l(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_xadd_r2m_opb_u	src/libdft_core.c	/^_xadd_r2m_opb_u(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_xadd_r2m_opl	src/libdft_core.c	/^_xadd_r2m_opl(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_xadd_r2m_opw	src/libdft_core.c	/^_xadd_r2m_opw(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_xadd_r2r_opb_l	src/libdft_core.c	/^_xadd_r2r_opb_l(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xadd_r2r_opb_lu	src/libdft_core.c	/^_xadd_r2r_opb_lu(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xadd_r2r_opb_u	src/libdft_core.c	/^_xadd_r2r_opb_u(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xadd_r2r_opb_ul	src/libdft_core.c	/^_xadd_r2r_opb_ul(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xadd_r2r_opw	src/libdft_core.c	/^_xadd_r2r_opw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xchg_m2r_opb_l	src/libdft_core.c	/^_xchg_m2r_opb_l(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_xchg_m2r_opb_u	src/libdft_core.c	/^_xchg_m2r_opb_u(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_xchg_m2r_opl	src/libdft_core.c	/^_xchg_m2r_opl(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_xchg_m2r_opw	src/libdft_core.c	/^_xchg_m2r_opw(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+_xchg_r2r_opb_l	src/libdft_core.c	/^_xchg_r2r_opb_l(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xchg_r2r_opb_lu	src/libdft_core.c	/^_xchg_r2r_opb_lu(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xchg_r2r_opb_u	src/libdft_core.c	/^_xchg_r2r_opb_u(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xchg_r2r_opb_ul	src/libdft_core.c	/^_xchg_r2r_opb_ul(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+_xchg_r2r_opw	src/libdft_core.c	/^_xchg_r2r_opw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+alert	tools/libdft-dta.c	/^alert(ADDRINT ins, ADDRINT bt)$/;"	f	file:
+arg	src/libdft_api.h	/^	ADDRINT arg[SYSCALL_ARG_NUM];	\/* arguments *\/$/;"	m	struct:__anon5
+array	src/syscall_desc.h	/^	unsigned short	*array;$/;"	m	union:semun
+assert_mem16	tools/libdft-dta.c	/^assert_mem16(ADDRINT paddr, ADDRINT taddr)$/;"	f	file:
+assert_mem32	tools/libdft-dta.c	/^assert_mem32(ADDRINT paddr, ADDRINT taddr)$/;"	f	file:
+assert_reg16	tools/libdft-dta.c	/^assert_reg16(thread_ctx_t *thread_ctx, uint32_t reg, uint32_t addr)$/;"	f	file:
+assert_reg32	tools/libdft-dta.c	/^assert_reg32(thread_ctx_t *thread_ctx, uint32_t reg, uint32_t addr)$/;"	f	file:
+aux	src/libdft_api.h	/^	void	*aux;			\/* auxiliary data (processor state) *\/$/;"	m	struct:__anon5
+bitmap	src/tagmap.c	/^uint8_t *bitmap = NULL;$/;"	v
+blob	src/syscall_desc.h	/^	unsigned long blob[128 \/ sizeof(long)];$/;"	m	struct:getcpu_cache
+buf	src/syscall_desc.h	/^	struct semid_ds	*buf;$/;"	m	union:semun	typeref:struct:semun::semid_ds
+cap_user_data_t	src/syscall_desc.h	/^} *cap_user_data_t;$/;"	t	typeref:struct:__user_cap_data_struct
+cap_user_header_t	src/syscall_desc.h	/^} *cap_user_header_t;$/;"	t	typeref:struct:__user_cap_header_struct
+d_bcount	src/syscall_desc.h	/^	__u64	d_bcount;$/;"	m	struct:fs_disk_quota
+d_blk_hardlimit	src/syscall_desc.h	/^	__u64	d_blk_hardlimit;$/;"	m	struct:fs_disk_quota
+d_blk_softlimit	src/syscall_desc.h	/^	__u64	d_blk_softlimit;$/;"	m	struct:fs_disk_quota
+d_btimer	src/syscall_desc.h	/^	__s32	d_btimer;$/;"	m	struct:fs_disk_quota
+d_bwarns	src/syscall_desc.h	/^	__u16	d_bwarns;$/;"	m	struct:fs_disk_quota
+d_fieldmask	src/syscall_desc.h	/^	__u16	d_fieldmask;$/;"	m	struct:fs_disk_quota
+d_flags	src/syscall_desc.h	/^	__s8	d_flags;$/;"	m	struct:fs_disk_quota
+d_icount	src/syscall_desc.h	/^	__u64	d_icount;$/;"	m	struct:fs_disk_quota
+d_id	src/syscall_desc.h	/^	__u32	d_id;$/;"	m	struct:fs_disk_quota
+d_ino	src/syscall_desc.h	/^	unsigned long	d_ino;$/;"	m	struct:linux_dirent
+d_ino	src/syscall_desc.h	/^	unsigned long	d_ino;$/;"	m	struct:old_linux_dirent
+d_ino_hardlimit	src/syscall_desc.h	/^	__u64	d_ino_hardlimit;$/;"	m	struct:fs_disk_quota
+d_ino_softlimit	src/syscall_desc.h	/^	__u64	d_ino_softlimit;$/;"	m	struct:fs_disk_quota
+d_itimer	src/syscall_desc.h	/^	__s32	d_itimer;$/;"	m	struct:fs_disk_quota
+d_iwarns	src/syscall_desc.h	/^	__u16	d_iwarns;$/;"	m	struct:fs_disk_quota
+d_name	src/syscall_desc.h	/^	char		d_name[1];$/;"	m	struct:linux_dirent
+d_name	src/syscall_desc.h	/^	char		d_name[1];$/;"	m	struct:old_linux_dirent
+d_namlen	src/syscall_desc.h	/^	unsigned short	d_namlen;$/;"	m	struct:old_linux_dirent
+d_off	src/syscall_desc.h	/^	unsigned long	d_off;$/;"	m	struct:linux_dirent
+d_offset	src/syscall_desc.h	/^	unsigned long	d_offset;$/;"	m	struct:old_linux_dirent
+d_padding2	src/syscall_desc.h	/^	__s32	d_padding2;$/;"	m	struct:fs_disk_quota
+d_padding3	src/syscall_desc.h	/^	__s16	d_padding3;$/;"	m	struct:fs_disk_quota
+d_padding4	src/syscall_desc.h	/^	char	d_padding4[8];$/;"	m	struct:fs_disk_quota
+d_reclen	src/syscall_desc.h	/^	unsigned short	d_reclen;$/;"	m	struct:linux_dirent
+d_rtb_hardlimit	src/syscall_desc.h	/^	__u64	d_rtb_hardlimit;$/;"	m	struct:fs_disk_quota
+d_rtb_softlimit	src/syscall_desc.h	/^	__u64	d_rtb_softlimit;$/;"	m	struct:fs_disk_quota
+d_rtbcount	src/syscall_desc.h	/^	__u64	d_rtbcount;$/;"	m	struct:fs_disk_quota
+d_rtbtimer	src/syscall_desc.h	/^	__s32	d_rtbtimer;$/;"	m	struct:fs_disk_quota
+d_rtbwarns	src/syscall_desc.h	/^	__u16	d_rtbwarns;$/;"	m	struct:fs_disk_quota
+d_version	src/syscall_desc.h	/^	__s8	d_version;$/;"	m	struct:fs_disk_quota
+dflact	src/libdft_api.h	/^	size_t	dflact;                 \/* default instrumentation predicate *\/$/;"	m	struct:__anon7
+dqb_bhardlimit	src/syscall_desc.h	/^	__u64 dqb_bhardlimit;$/;"	m	struct:if_dqblk
+dqb_bsoftlimit	src/syscall_desc.h	/^	__u64 dqb_bsoftlimit;$/;"	m	struct:if_dqblk
+dqb_btime	src/syscall_desc.h	/^	__u64 dqb_btime;$/;"	m	struct:if_dqblk
+dqb_curinodes	src/syscall_desc.h	/^	__u64 dqb_curinodes;$/;"	m	struct:if_dqblk
+dqb_curspace	src/syscall_desc.h	/^	__u64 dqb_curspace;$/;"	m	struct:if_dqblk
+dqb_ihardlimit	src/syscall_desc.h	/^	__u64 dqb_ihardlimit;$/;"	m	struct:if_dqblk
+dqb_isoftlimit	src/syscall_desc.h	/^	__u64 dqb_isoftlimit;$/;"	m	struct:if_dqblk
+dqb_itime	src/syscall_desc.h	/^	__u64 dqb_itime;$/;"	m	struct:if_dqblk
+dqb_valid	src/syscall_desc.h	/^	__u32 dqb_valid;$/;"	m	struct:if_dqblk
+dqi_bgrace	src/syscall_desc.h	/^	__u64 dqi_bgrace;$/;"	m	struct:if_dqinfo
+dqi_flags	src/syscall_desc.h	/^	__u32 dqi_flags;$/;"	m	struct:if_dqinfo
+dqi_igrace	src/syscall_desc.h	/^	__u64 dqi_igrace;$/;"	m	struct:if_dqinfo
+dqi_valid	src/syscall_desc.h	/^	__u32 dqi_valid;$/;"	m	struct:if_dqinfo
+dta_instrument_jmp_call	tools/libdft-dta.c	/^dta_instrument_jmp_call(INS ins)$/;"	f	file:
+dta_instrument_ret	tools/libdft-dta.c	/^dta_instrument_ret(INS ins)$/;"	f	file:
+effective	src/syscall_desc.h	/^	__u32 effective;$/;"	m	struct:__user_cap_data_struct
+f_handle	src/syscall_desc.h	/^	unsigned char	f_handle[0];$/;"	m	struct:file_handle
+fdset	tools/libdft-dta.c	/^static set<int> fdset;$/;"	v	file:
+file_handle	src/syscall_desc.h	/^struct file_handle {$/;"	s
+fix_eflags	src/libdft_api.c	/^fix_eflags(THREADID tid, EXCEPTION_INFO *pExceptInfo,$/;"	f	file:
+fs_disk_quota	src/syscall_desc.h	/^struct fs_disk_quota {$/;"	s
+fs_qfilestat	src/syscall_desc.h	/^typedef struct fs_qfilestat {$/;"	s
+fs_qfilestat_t	src/syscall_desc.h	/^} fs_qfilestat_t;$/;"	t	typeref:struct:fs_qfilestat
+fs_quota_stat	src/syscall_desc.h	/^struct fs_quota_stat {$/;"	s
+getcpu_cache	src/syscall_desc.h	/^struct getcpu_cache {$/;"	s
+gpr	src/libdft_api.h	/^	uint32_t gpr[GRP_NUM + 1];$/;"	m	struct:__anon4
+handle_bytes	src/syscall_desc.h	/^	__u32		handle_bytes;$/;"	m	struct:file_handle
+handle_type	src/syscall_desc.h	/^	int 		handle_type;$/;"	m	struct:file_handle
+if_dqblk	src/syscall_desc.h	/^struct if_dqblk {$/;"	s
+if_dqinfo	src/syscall_desc.h	/^struct if_dqinfo {$/;"	s
+inheritable	src/syscall_desc.h	/^	__u32 inheritable;$/;"	m	struct:__user_cap_data_struct
+ins_clr_post	src/libdft_api.c	/^ins_clr_post(ins_desc_t *desc)$/;"	f
+ins_clr_pre	src/libdft_api.c	/^ins_clr_pre(ins_desc_t *desc)$/;"	f
+ins_desc	src/libdft_api.c	/^ins_desc_t ins_desc[XED_ICLASS_LAST];$/;"	v
+ins_desc_t	src/libdft_api.h	/^} ins_desc_t;$/;"	t	typeref:struct:__anon7
+ins_inspect	src/libdft_core.c	/^ins_inspect(INS ins)$/;"	f
+ins_set_dflact	src/libdft_api.c	/^ins_set_dflact(ins_desc_t *desc, size_t action)$/;"	f
+ins_set_post	src/libdft_api.c	/^ins_set_post(ins_desc_t *desc, void (* post)(INS))$/;"	f
+ins_set_pre	src/libdft_api.c	/^ins_set_pre(ins_desc_t *desc, void (* pre)(INS))$/;"	f
+libdft_die	src/libdft_api.c	/^libdft_die(void)$/;"	f
+libdft_init	src/libdft_api.c	/^libdft_init(ADDRINT version_mask)$/;"	f
+likely	src/branch_pred.h	37;"	d
+linux_dirent	src/syscall_desc.h	/^struct linux_dirent {$/;"	s
+m2m_xfer_opb	src/libdft_core.c	/^m2m_xfer_opb(ADDRINT dst, ADDRINT src)$/;"	f	file:
+m2m_xfer_opl	src/libdft_core.c	/^m2m_xfer_opl(ADDRINT dst, ADDRINT src)$/;"	f	file:
+m2m_xfer_opw	src/libdft_core.c	/^m2m_xfer_opw(ADDRINT dst, ADDRINT src)$/;"	f	file:
+m2r_binary_opb_l	src/libdft_core.c	/^m2r_binary_opb_l(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+m2r_binary_opb_u	src/libdft_core.c	/^m2r_binary_opb_u(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+m2r_binary_opl	src/libdft_core.c	/^m2r_binary_opl(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+m2r_binary_opw	src/libdft_core.c	/^m2r_binary_opw(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+m2r_restore_opl	src/libdft_core.c	/^m2r_restore_opl(thread_ctx_t *thread_ctx, ADDRINT src)$/;"	f	file:
+m2r_restore_opw	src/libdft_core.c	/^m2r_restore_opw(thread_ctx_t *thread_ctx, ADDRINT src)$/;"	f	file:
+m2r_ternary_opb	src/libdft_core.c	/^m2r_ternary_opb(thread_ctx_t *thread_ctx, ADDRINT src)$/;"	f	file:
+m2r_ternary_opl	src/libdft_core.c	/^m2r_ternary_opl(thread_ctx_t *thread_ctx, ADDRINT src)$/;"	f	file:
+m2r_ternary_opw	src/libdft_core.c	/^m2r_ternary_opw(thread_ctx_t *thread_ctx, ADDRINT src)$/;"	f	file:
+m2r_xfer_opb_l	src/libdft_core.c	/^m2r_xfer_opb_l(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+m2r_xfer_opb_u	src/libdft_core.c	/^m2r_xfer_opb_u(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+m2r_xfer_opl	src/libdft_core.c	/^m2r_xfer_opl(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+m2r_xfer_opw	src/libdft_core.c	/^m2r_xfer_opw(thread_ctx_t *thread_ctx, uint32_t dst, ADDRINT src)$/;"	f	file:
+main	tools/libdft-dta.c	/^main(int argc, char **argv)$/;"	f
+main	tools/libdft.c	/^main(int argc, char **argv)$/;"	f
+main	tools/nullpin.c	/^main(int argc, char **argv)$/;"	f
+map_args	src/syscall_desc.h	/^	size_t	map_args[SYSCALL_ARG_NUM];	\/* arguments map *\/$/;"	m	struct:__anon1
+nargs	src/syscall_desc.h	/^	size_t	nargs;				\/* number of arguments *\/$/;"	m	struct:__anon1
+nr	src/libdft_api.h	/^	int 	nr;			\/* syscall number *\/$/;"	m	struct:__anon5
+old_gid_t	src/syscall_desc.h	/^typedef	__kernel_old_gid_t	old_gid_t;$/;"	t
+old_linux_dirent	src/syscall_desc.h	/^struct old_linux_dirent {$/;"	s
+old_sigset_t	src/syscall_desc.h	/^typedef unsigned long old_sigset_t;$/;"	t
+old_uid_t	src/syscall_desc.h	/^typedef	__kernel_old_uid_t	old_uid_t;$/;"	t
+permitted	src/syscall_desc.h	/^	__u32 permitted;$/;"	m	struct:__user_cap_data_struct
+pid	src/syscall_desc.h	/^	int pid;$/;"	m	struct:__user_cap_header_struct
+post	src/libdft_api.h	/^	void	(* post)(INS ins);	\/* post-ins instrumentation callback *\/$/;"	m	struct:__anon7
+post	src/syscall_desc.h	/^	void 	(* post)(syscall_ctx_t*);	\/* post-syscall callback *\/$/;"	m	struct:__anon1
+post__sysctl_hook	src/syscall_desc.c	/^post__sysctl_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_close_hook	tools/libdft-dta.c	/^post_close_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_dup_hook	tools/libdft-dta.c	/^post_dup_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_epoll_wait_hook	src/syscall_desc.c	/^post_epoll_wait_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_fcntl_hook	src/syscall_desc.c	/^post_fcntl_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_get_mempolicy_hook	src/syscall_desc.c	/^post_get_mempolicy_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_getcwd_hook	src/syscall_desc.c	/^post_getcwd_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_getdents_hook	src/syscall_desc.c	/^post_getdents_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_getgroups16_hook	src/syscall_desc.c	/^post_getgroups16_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_getgroups_hook	src/syscall_desc.c	/^post_getgroups_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_getxattr_hook	src/syscall_desc.c	/^post_getxattr_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_io_getevents_hook	src/syscall_desc.c	/^post_io_getevents_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_ipc_hook	src/syscall_desc.c	/^post_ipc_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_listxattr_hook	src/syscall_desc.c	/^post_listxattr_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_lookup_dcookie_hook	src/syscall_desc.c	/^post_lookup_dcookie_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_mincore_hook	src/syscall_desc.c	/^post_mincore_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_mmap_hook	src/syscall_desc.c	/^post_mmap_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_modify_ldt_hook	src/syscall_desc.c	/^post_modify_ldt_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_mq_timedreceive_hook	src/syscall_desc.c	/^post_mq_timedreceive_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_open_hook	tools/libdft-dta.c	/^post_open_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_poll_hook	src/syscall_desc.c	/^post_poll_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_quotactl_hook	src/syscall_desc.c	/^post_quotactl_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_read_hook	src/syscall_desc.c	/^post_read_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_read_hook	tools/libdft-dta.c	/^post_read_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_readlinkat_hook	src/syscall_desc.c	/^post_readlinkat_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_readv_hook	src/syscall_desc.c	/^post_readv_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_readv_hook	tools/libdft-dta.c	/^post_readv_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_recvmmsg_hook	src/syscall_desc.c	/^post_recvmmsg_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_rt_sigpending_hook	src/syscall_desc.c	/^post_rt_sigpending_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_socketcall_hook	src/syscall_desc.c	/^post_socketcall_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_socketcall_hook	tools/libdft-dta.c	/^post_socketcall_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_syslog_hook	src/syscall_desc.c	/^post_syslog_hook(syscall_ctx_t *ctx)$/;"	f	file:
+pre	src/libdft_api.h	/^	void	(* pre)(INS ins);	\/* pre-ins instrumentation callback *\/$/;"	m	struct:__anon7
+pre	src/syscall_desc.h	/^	void	(* pre)(syscall_ctx_t*);	\/* pre-syscall callback *\/$/;"	m	struct:__anon1
+qfs_ino	src/syscall_desc.h	/^	__u64 qfs_ino;$/;"	m	struct:fs_qfilestat
+qfs_nblks	src/syscall_desc.h	/^	__u64 qfs_nblks;$/;"	m	struct:fs_qfilestat
+qfs_nextents	src/syscall_desc.h	/^	__u32 qfs_nextents;$/;"	m	struct:fs_qfilestat
+qs_btimelimit	src/syscall_desc.h	/^	__s32		qs_btimelimit;$/;"	m	struct:fs_quota_stat
+qs_bwarnlimit	src/syscall_desc.h	/^	__u16		qs_bwarnlimit;$/;"	m	struct:fs_quota_stat
+qs_flag	src/syscall_desc.h	/^	__u16		qs_flag;$/;"	m	struct:fs_quota_stat
+qs_gquota	src/syscall_desc.h	/^	fs_qfilestat_t	qs_gquota;$/;"	m	struct:fs_quota_stat
+qs_incoredqs	src/syscall_desc.h	/^	__u32		qs_incoredqs;$/;"	m	struct:fs_quota_stat
+qs_itimelimit	src/syscall_desc.h	/^	__s32		qs_itimelimit;$/;"	m	struct:fs_quota_stat
+qs_iwarnlimit	src/syscall_desc.h	/^	__u16		qs_iwarnlimit;$/;"	m	struct:fs_quota_stat
+qs_pad	src/syscall_desc.h	/^	__s8		qs_pad;$/;"	m	struct:fs_quota_stat
+qs_rtbtimelimit	src/syscall_desc.h	/^	__s32		qs_rtbtimelimit;$/;"	m	struct:fs_quota_stat
+qs_uquota	src/syscall_desc.h	/^	fs_qfilestat_t	qs_uquota;$/;"	m	struct:fs_quota_stat
+qs_version	src/syscall_desc.h	/^	__s8		qs_version;$/;"	m	struct:fs_quota_stat
+r2m_binary_opb_l	src/libdft_core.c	/^r2m_binary_opb_l(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+r2m_binary_opb_u	src/libdft_core.c	/^r2m_binary_opb_u(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+r2m_binary_opl	src/libdft_core.c	/^r2m_binary_opl(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+r2m_binary_opw	src/libdft_core.c	/^r2m_binary_opw(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+r2m_save_opl	src/libdft_core.c	/^r2m_save_opl(thread_ctx_t *thread_ctx, ADDRINT dst)$/;"	f	file:
+r2m_save_opw	src/libdft_core.c	/^r2m_save_opw(thread_ctx_t *thread_ctx, ADDRINT dst)$/;"	f	file:
+r2m_xfer_opb_l	src/libdft_core.c	/^r2m_xfer_opb_l(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+r2m_xfer_opb_u	src/libdft_core.c	/^r2m_xfer_opb_u(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+r2m_xfer_opbn	src/libdft_core.c	/^r2m_xfer_opbn(thread_ctx_t *thread_ctx,$/;"	f	file:
+r2m_xfer_opl	src/libdft_core.c	/^r2m_xfer_opl(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+r2m_xfer_opln	src/libdft_core.c	/^r2m_xfer_opln(thread_ctx_t *thread_ctx,$/;"	f	file:
+r2m_xfer_opw	src/libdft_core.c	/^r2m_xfer_opw(thread_ctx_t *thread_ctx, ADDRINT dst, uint32_t src)$/;"	f	file:
+r2m_xfer_opwn	src/libdft_core.c	/^r2m_xfer_opwn(thread_ctx_t *thread_ctx,$/;"	f	file:
+r2r_binary_opb_l	src/libdft_core.c	/^r2r_binary_opb_l(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_binary_opb_lu	src/libdft_core.c	/^r2r_binary_opb_lu(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_binary_opb_u	src/libdft_core.c	/^r2r_binary_opb_u(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_binary_opb_ul	src/libdft_core.c	/^r2r_binary_opb_ul(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_binary_opl	src/libdft_core.c	/^r2r_binary_opl(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_binary_opw	src/libdft_core.c	/^r2r_binary_opw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_ternary_opb_l	src/libdft_core.c	/^r2r_ternary_opb_l(thread_ctx_t *thread_ctx, uint32_t src)$/;"	f	file:
+r2r_ternary_opb_u	src/libdft_core.c	/^r2r_ternary_opb_u(thread_ctx_t *thread_ctx, uint32_t src)$/;"	f	file:
+r2r_ternary_opl	src/libdft_core.c	/^r2r_ternary_opl(thread_ctx_t *thread_ctx, uint32_t src)$/;"	f	file:
+r2r_ternary_opw	src/libdft_core.c	/^r2r_ternary_opw(thread_ctx_t *thread_ctx, uint32_t src)$/;"	f	file:
+r2r_xfer_opb_l	src/libdft_core.c	/^r2r_xfer_opb_l(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_xfer_opb_lu	src/libdft_core.c	/^r2r_xfer_opb_lu(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_xfer_opb_u	src/libdft_core.c	/^r2r_xfer_opb_u(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_xfer_opb_ul	src/libdft_core.c	/^r2r_xfer_opb_ul(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_xfer_opl	src/libdft_core.c	/^r2r_xfer_opl(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r2r_xfer_opw	src/libdft_core.c	/^r2r_xfer_opw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
+r_clrb_l	src/libdft_core.c	/^r_clrb_l(thread_ctx_t *thread_ctx, uint32_t reg)$/;"	f	file:
+r_clrb_u	src/libdft_core.c	/^r_clrb_u(thread_ctx_t *thread_ctx, uint32_t reg)$/;"	f	file:
+r_clrl	src/libdft_core.c	/^r_clrl(thread_ctx_t *thread_ctx, uint32_t reg)$/;"	f	file:
+r_clrl2	src/libdft_core.c	/^r_clrl2(thread_ctx_t *thread_ctx)$/;"	f	file:
+r_clrl4	src/libdft_core.c	/^r_clrl4(thread_ctx_t *thread_ctx)$/;"	f	file:
+r_clrw	src/libdft_core.c	/^r_clrw(thread_ctx_t *thread_ctx, uint32_t reg)$/;"	f	file:
+rep_predicate	src/libdft_core.c	/^rep_predicate(BOOL first_iteration)$/;"	f	file:
+ret	src/libdft_api.h	/^	ADDRINT ret;			\/* return value *\/$/;"	m	struct:__anon5
+retval_args	src/syscall_desc.h	/^	size_t	retval_args;		\/* flag; returns value in arguments *\/$/;"	m	struct:__anon1
+save_args	src/syscall_desc.h	/^	size_t	save_args;			\/* flag; save arguments *\/$/;"	m	struct:__anon1
+semun	src/syscall_desc.h	/^union semun {$/;"	u
+syscall_clr_post	src/syscall_desc.c	/^syscall_clr_post(syscall_desc_t *desc)$/;"	f
+syscall_clr_pre	src/syscall_desc.c	/^syscall_clr_pre(syscall_desc_t *desc)$/;"	f
+syscall_ctx	src/libdft_api.h	/^	syscall_ctx_t	syscall_ctx;	\/* syscall context *\/$/;"	m	struct:__anon6
+syscall_ctx_t	src/libdft_api.h	/^} syscall_ctx_t;$/;"	t	typeref:struct:__anon5
+syscall_desc	src/syscall_desc.c	/^syscall_desc_t syscall_desc[SYSCALL_MAX] = {$/;"	v
+syscall_desc_t	src/syscall_desc.h	/^} syscall_desc_t;$/;"	t	typeref:struct:__anon1
+syscall_set_post	src/syscall_desc.c	/^syscall_set_post(syscall_desc_t *desc, void (* post)(syscall_ctx_t*))$/;"	f
+syscall_set_pre	src/syscall_desc.c	/^syscall_set_pre(syscall_desc_t *desc, void (* pre)(syscall_ctx_t*))$/;"	f
+sysenter_save	src/libdft_api.c	/^sysenter_save(THREADID tid, CONTEXT *ctx, SYSCALL_STANDARD std, VOID *v)$/;"	f	file:
+sysexit_save	src/libdft_api.c	/^sysexit_save(THREADID tid, CONTEXT *ctx, SYSCALL_STANDARD std, VOID *v)$/;"	f	file:
+tagmap_alloc	src/tagmap.c	/^tagmap_alloc(void)$/;"	f
+tagmap_clrb	src/tagmap.c	/^tagmap_clrb(size_t addr)$/;"	f
+tagmap_clrl	src/tagmap.c	/^tagmap_clrl(size_t addr)$/;"	f
+tagmap_clrn	src/tagmap.c	/^tagmap_clrn(size_t addr, size_t num)$/;"	f
+tagmap_clrq	src/tagmap.c	/^tagmap_clrq(size_t addr)$/;"	f
+tagmap_clrw	src/tagmap.c	/^tagmap_clrw(size_t addr)$/;"	f
+tagmap_free	src/tagmap.c	/^tagmap_free(void)$/;"	f
+tagmap_getb	src/tagmap.c	/^tagmap_getb(size_t addr)$/;"	f
+tagmap_getl	src/tagmap.c	/^tagmap_getl(size_t addr)$/;"	f
+tagmap_getq	src/tagmap.c	/^tagmap_getq(size_t addr)$/;"	f
+tagmap_getw	src/tagmap.c	/^tagmap_getw(size_t addr)$/;"	f
+tagmap_issetn	src/tagmap.c	/^tagmap_issetn(size_t addr, size_t num)$/;"	f
+tagmap_setb	src/tagmap.c	/^tagmap_setb(size_t addr)$/;"	f
+tagmap_setl	src/tagmap.c	/^tagmap_setl(size_t addr)$/;"	f
+tagmap_setn	src/tagmap.c	/^tagmap_setn(size_t addr, size_t num)$/;"	f
+tagmap_setq	src/tagmap.c	/^tagmap_setq(size_t addr)$/;"	f
+tagmap_setw	src/tagmap.c	/^tagmap_setw(size_t addr)$/;"	f
+thread_alloc	src/libdft_api.c	/^thread_alloc(THREADID tid, CONTEXT *ctx, INT32 flags, VOID *v)$/;"	f	file:
+thread_ctx_init	src/libdft_api.c	/^thread_ctx_init(void)$/;"	f	file:
+thread_ctx_ptr	src/libdft_api.c	/^REG thread_ctx_ptr;$/;"	v
+thread_ctx_t	src/libdft_api.h	/^} thread_ctx_t;$/;"	t	typeref:struct:__anon6
+thread_free	src/libdft_api.c	/^thread_free(THREADID tid, const CONTEXT *ctx, INT32 code, VOID *v)$/;"	f	file:
+trace_inspect	src/libdft_api.c	/^trace_inspect(TRACE trace, VOID *v)$/;"	f	file:
+trace_inspect	tools/nullpin.c	/^trace_inspect(TRACE trace, VOID *v)$/;"	f	file:
+unlikely	src/branch_pred.h	38;"	d
+uval	src/libdft_api.h	/^	void		*uval;		\/* local storage *\/$/;"	m	struct:__anon6
+val	src/syscall_desc.h	/^	int		val;$/;"	m	union:semun
+vcpu	src/libdft_api.h	/^	vcpu_ctx_t	vcpu;		\/* VCPU context *\/$/;"	m	struct:__anon6
+vcpu_ctx_t	src/libdft_api.h	/^} vcpu_ctx_t;$/;"	t	typeref:struct:__anon4
+version	src/syscall_desc.h	/^	__u32 version;$/;"	m	struct:__user_cap_header_struct
