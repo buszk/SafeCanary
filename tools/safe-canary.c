@@ -14,16 +14,24 @@ static ADDRINT lastWriteINS = 0;
 static ADDRINT lastWriteAddr = 0;
 static UINT32 lastWriteSize = 0;
 
+/* thread context */
+extern REG thread_ctx_ptr;
+
+/* Record current write */
 static VOID CanaryMemWrite(ADDRINT inst_addr, VOID * addr, INT32 size) {
-    printf("%x: %x, %d\n", inst_addr, addr, size);
     lastWriteINS = (ADDRINT)inst_addr;
     lastWriteAddr = (ADDRINT)addr;
     lastWriteSize = size;
+}
 
+/* test: assert the reg as tainted */
+static VOID PIN_FAST_ANALYSIS_CALL
+assert_reg32_tainted(thread_ctx_t *thread_ctx, uint32_t reg) {
+    assert(thread_ctx->vcpu.gpr[reg]);
+    // printf("Tainted: %s\n", thread_ctx->vcpu.gpr[reg]? "yes": "no");
 }
 static VOID CanaryMemWriteAfter(ADDRINT inst_addr) {
-    printf("%x: %x, %d\n", inst_addr, lastWriteAddr, lastWriteSize);
-    // Mark the Write location tainted
+    /* Mark the Write location tainted */
     if (lastWriteINS == inst_addr) {
         if (lastWriteSize == 4) {
             tagmap_setl(lastWriteAddr);
@@ -37,11 +45,12 @@ static VOID CanaryMemWriteAfter(ADDRINT inst_addr) {
         else {
             assert (0);
         }
+        assert(tagmap_getb(lastWriteAddr) );
     }
     else {
         assert (0);
     }
-   
+    printf("%x: %x, %d\n", inst_addr, lastWriteAddr, lastWriteSize);
 }
 static void ins_inspect (INS ins, VOID *v) {
 
@@ -49,51 +58,57 @@ static void ins_inspect (INS ins, VOID *v) {
 
 	if (INS_IsMov(ins)) {
         /* find all canary setup */
+        INS next = INS_Next(ins);
         if (INS_RegRContain(ins, REG_SEG_GS) && INS_IsMemoryRead(ins) && INS_IsStackWrite(INS_Next(ins))) {
             // possible canary
+            // TODO: optimize with bit op
             if (INS_Disassemble(ins).find("gs:[0x14]") != std::string::npos) {
                 // canary
 			    printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
-                printf("%x: %s\n", INS_NextAddress(ins), INS_Disassemble(INS_Next(ins)).c_str());
-                
-                // Add callback to taint the stack memory
+                printf("%x: %s\n", INS_Address(next), INS_Disassemble(next).c_str());
+                printf("%d\n", INS_OperandReg(ins, (UINT32) 0));
+                /*
+                 * Add callbacks to taint the stack memory
+                 * The first insert call checks for address and size to write
+                 * The second insert call that verifies the Mem write succeed
+                 *     and taint the memory range.
+                 */
                 INS_InsertCall(
                         INS_Next(ins), IPOINT_BEFORE, (AFUNPTR)CanaryMemWrite,
                         IARG_INST_PTR,
                         IARG_MEMORYWRITE_PTR,
                         IARG_MEMORYWRITE_SIZE,
                         IARG_END);
+
                 INS_InsertCall(
                         INS_Next(ins), IPOINT_AFTER, (AFUNPTR)CanaryMemWriteAfter,
                         IARG_INST_PTR,
                         IARG_END); 
             }
+            return;
         }
-        
-/*
-        // find all instructions disassembly with gs in it 
-		if (INS_Disassemble(ins).find("gs:[0x14]") != std::string::npos) {
-			printf("Has gs\n");
-            printf("Is memory read: %s\n", INS_IsMemoryRead(ins) ? "true": "false");
-			// printf("GS for read : %s\n", INS_RegRContain(ins, REG_SEG_GS) ? "true": "false");
-			// printf("GS for write: %s\n", INS_RegWContain(ins, REG_SEG_GS) ? "true": "false");
-            printf("Is next INS stack write: %s\n", INS_IsStackWrite(INS_Next(ins)) ? "true": "false");
-		}      
-*/
-	}
-/*
+    }        
 
-	// use XED to decode the instruction and extract its opcode
-	xed_iclass_enum_t ins_indx = (xed_iclass_enum_t)INS_Opcode(ins);
 
-	switch (ins_indx) {
-		case XED_ICLASS_MOV:
-			break;
-		default:
-			break;
-	
+    /* Check at canary check time that the canary is actually tainted  */
+    if ((xed_iclass_enum_t)INS_Opcode(ins) == XED_ICLASS_XOR) {
+        if (INS_RegRContain(ins, REG_SEG_GS) && INS_IsMemoryRead(ins)) {
+            // TODO: make this bit op
+            if (INS_Disassemble(ins).find("gs:[0x14]") != std::string::npos) {
+                INS prev = INS_Prev(ins);
+                printf("%x: %s\n", INS_Address(prev), INS_Disassemble(prev).c_str());
+                printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
+                printf("%d\n", INS_OperandReg(prev, (UINT32) 0));
+                REG reg_dst = INS_OperandReg(prev, (UINT32) 0);
+                assert (INS_OperandReg(prev, 0) == INS_OperandReg(ins, 0));
+                INS_InsertCall(
+                        ins, IPOINT_BEFORE, (AFUNPTR)assert_reg32_tainted,
+                        IARG_REG_VALUE, thread_ctx_ptr,
+                        IARG_UINT32, REG32_INDX(reg_dst),
+                        IARG_END);
+            }
+        }	
     }
- */    
 }
 
 
@@ -118,6 +133,11 @@ int main (int argc, char **argv) {
 
 	/* add canary create check */
 	INS_AddInstrumentFunction(ins_inspect, NULL);
+
+    /*
+     * Install taint check at print syscall
+     */
+
 
 	/* start PIN */
 	PIN_StartProgram();
