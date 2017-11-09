@@ -8,7 +8,10 @@
 #include "string.h"
 #include "assert.h"
 #include "tagmap.h"
+#include "syscall_desc.h"
 
+
+static int debug = 0;
 // Counters
 static ADDRINT lastWriteINS = 0;
 static ADDRINT lastWriteAddr = 0;
@@ -16,6 +19,12 @@ static UINT32 lastWriteSize = 0;
 
 /* thread context */
 extern REG thread_ctx_ptr;
+
+/* ins descriptors */
+extern ins_desc_t ins_desc[XED_ICLASS_LAST];
+
+/* syscall descriptors */
+extern syscall_desc_t syscall_desc[SYSCALL_MAX];
 
 /* Record current write */
 static VOID CanaryMemWrite(ADDRINT inst_addr, VOID * addr, INT32 size) {
@@ -28,7 +37,6 @@ static VOID CanaryMemWrite(ADDRINT inst_addr, VOID * addr, INT32 size) {
 static VOID PIN_FAST_ANALYSIS_CALL
 assert_reg32_tainted(thread_ctx_t *thread_ctx, uint32_t reg) {
     assert(thread_ctx->vcpu.gpr[reg]);
-    // printf("Tainted: %s\n", thread_ctx->vcpu.gpr[reg]? "yes": "no");
 }
 static VOID CanaryMemWriteAfter(ADDRINT inst_addr) {
     /* Mark the Write location tainted */
@@ -64,9 +72,11 @@ static void ins_inspect (INS ins, VOID *v) {
             // TODO: optimize with bit op
             if (INS_Disassemble(ins).find("gs:[0x14]") != std::string::npos) {
                 // canary
-			    printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
-                printf("%x: %s\n", INS_Address(next), INS_Disassemble(next).c_str());
-                printf("%d\n", INS_OperandReg(ins, (UINT32) 0));
+			    if (debug) {
+                    printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
+                    printf("%x: %s\n", INS_Address(next), INS_Disassemble(next).c_str());
+                    printf("%d\n", INS_OperandReg(ins, (UINT32) 0));
+                }
                 /*
                  * Add callbacks to taint the stack memory
                  * The first insert call checks for address and size to write
@@ -89,6 +99,7 @@ static void ins_inspect (INS ins, VOID *v) {
         }
     }        
 
+    if (!debug) return;
 
     /* Check at canary check time that the canary is actually tainted  */
     if ((xed_iclass_enum_t)INS_Opcode(ins) == XED_ICLASS_XOR) {
@@ -96,9 +107,11 @@ static void ins_inspect (INS ins, VOID *v) {
             // TODO: make this bit op
             if (INS_Disassemble(ins).find("gs:[0x14]") != std::string::npos) {
                 INS prev = INS_Prev(ins);
-                printf("%x: %s\n", INS_Address(prev), INS_Disassemble(prev).c_str());
-                printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
-                printf("%d\n", INS_OperandReg(prev, (UINT32) 0));
+                if (debug) {
+                    printf("%x: %s\n", INS_Address(prev), INS_Disassemble(prev).c_str());
+                    printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
+                    printf("%d\n", INS_OperandReg(prev, (UINT32) 0));
+                }
                 REG reg_dst = INS_OperandReg(prev, (UINT32) 0);
                 assert (INS_OperandReg(prev, 0) == INS_OperandReg(ins, 0));
                 INS_InsertCall(
@@ -108,6 +121,32 @@ static void ins_inspect (INS ins, VOID *v) {
                         IARG_END);
             }
         }	
+    }
+}
+
+static void 
+pre_write_hook(syscall_ctx_t *ctx) {
+    /* 
+     * ctx->arg[SYSCALL_ARG1]: print buffer 
+     * ctx->arg[SYSCALL_ARG2]: num byte to print
+     */
+    if (tagmap_issetn(ctx->arg[SYSCALL_ARG1], ctx->arg[SYSCALL_ARG2])) {
+        printf("=====pre data leak detected=====\n");
+    }
+}
+
+static void 
+post_write_hook(syscall_ctx_t *ctx) {
+    
+    /* Optimize the branch if the write is not success */
+    if (unlikely((long)ctx->ret <= 0))
+        return;
+    /* 
+     * ctx->arg[SYSCALL_ARG1]: print buffer 
+     * (size_t)ctx->ret: number of bytes
+     */
+    if (tagmap_issetn(ctx->arg[SYSCALL_ARG1], ctx->arg[SYSCALL_ARG2])) {
+        printf("=====post data leak detected=====\n");
     }
 }
 
@@ -138,7 +177,11 @@ int main (int argc, char **argv) {
      * Install taint check at print syscall
      */
 
-
+    /* write(2) */
+    (void)syscall_set_pre(&syscall_desc[__NR_write], pre_write_hook);
+    if (debug) {
+        (void)syscall_set_post(&syscall_desc[__NR_write], post_write_hook);
+    }
 	/* start PIN */
 	PIN_StartProgram();
 
