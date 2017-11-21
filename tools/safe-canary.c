@@ -142,7 +142,7 @@ static void
 pre_writev_hook(syscall_ctx_t *ctx) {
     int i;
     struct iovec *iov;
-
+    /* Check each iovec */
     for (i = 0; i < (int)ctx->arg[SYSCALL_ARG2]; i++) {
         iov = ((struct iovec *)ctx->arg[SYSCALL_ARG1]) + i;
 
@@ -157,21 +157,18 @@ pre_socketcall_hook(syscall_ctx_t *ctx) {
     int i;
     struct msghdr *msg;
     struct iovec *iov;
-
+    /* args to the actual function is kept as the arg1 of socketcall syscall*/
     unsigned long *args = (unsigned long *)ctx->arg[SYSCALL_ARG1];
     switch ((int)ctx->arg[SYSCALL_ARG0]) {
         case SYS_SEND:
         case SYS_SENDTO:
-            printf("Send/Sendto check\n");
-            //printf("%x, %d, %d, %d\n", ctx->args[SYSCALL_ARG1], ctx->args[SYSCALL_ARG2], ctx->args[SYSCALL_ARG3],ctx->args[SYSCALL_ARG4]);
             if (tagmap_issetn(args[SYSCALL_ARG1], args[SYSCALL_ARG2]))
                 printf("=====pre socket send leak detected=====\n");
-            
             break;
 
         case SYS_SENDMSG:
             msg = (struct msghdr *)args[SYSCALL_ARG1];
-
+            /* Check each iovec */
             for (i = 0; i < msg->msg_iovlen; i++) {
                 iov = &msg->msg_iov[i];
 
