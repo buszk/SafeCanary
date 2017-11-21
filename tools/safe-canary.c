@@ -1,15 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <errno.h>
+#include <sys/socket.h>
 
 #include "pin.H"
-#include "branch_pred.h"
 #include "libdft_api.h"
 #include "xed-iclass-enum.h"
-#include "string.h"
 #include "assert.h"
 #include "tagmap.h"
 #include "syscall_desc.h"
-
+#include "branch_pred.h"
+#include "libdft_core.h"
 
 static int debug = 0;
 // Counters
@@ -135,6 +138,55 @@ pre_write_hook(syscall_ctx_t *ctx) {
     }
 }
 
+static void
+pre_writev_hook(syscall_ctx_t *ctx) {
+    int i;
+    struct iovec *iov;
+
+    for (i = 0; i < (int)ctx->arg[SYSCALL_ARG2]; i++) {
+        iov = ((struct iovec *)ctx->arg[SYSCALL_ARG1]) + i;
+
+        if(tagmap_issetn((size_t)iov->iov_base, iov->iov_len)) {
+            printf("=====pre writev leak detected=====\n");
+            return;
+        }
+    }
+}
+static void 
+pre_socketcall_hook(syscall_ctx_t *ctx) {
+    int i;
+    struct msghdr *msg;
+    struct iovec *iov;
+
+    unsigned long *args = (unsigned long *)ctx->arg[SYSCALL_ARG1];
+    switch ((int)ctx->arg[SYSCALL_ARG0]) {
+        case SYS_SEND:
+        case SYS_SENDTO:
+            printf("Send/Sendto check\n");
+            //printf("%x, %d, %d, %d\n", ctx->args[SYSCALL_ARG1], ctx->args[SYSCALL_ARG2], ctx->args[SYSCALL_ARG3],ctx->args[SYSCALL_ARG4]);
+            if (tagmap_issetn(args[SYSCALL_ARG1], args[SYSCALL_ARG2]))
+                printf("=====pre socket send leak detected=====\n");
+            
+            break;
+
+        case SYS_SENDMSG:
+            msg = (struct msghdr *)args[SYSCALL_ARG1];
+
+            for (i = 0; i < msg->msg_iovlen; i++) {
+                iov = &msg->msg_iov[i];
+
+                if (tagmap_issetn((size_t)iov->iov_base, (size_t)iov->iov_len)) {
+                    printf("=====pre socket sendmsg leak detected=====\n");
+                    break;
+                }
+            }
+            break;
+
+        default:
+            break;
+    }
+}
+
 static void 
 post_write_hook(syscall_ctx_t *ctx) {
     
@@ -182,7 +234,14 @@ int main (int argc, char **argv) {
     if (debug) {
         (void)syscall_set_post(&syscall_desc[__NR_write], post_write_hook);
     }
-	/* start PIN */
+
+    /* writev(2) */
+    (void)syscall_set_pre(&syscall_desc[__NR_writev], pre_writev_hook);
+    
+    /* socketcall */
+    (void)syscall_set_pre(&syscall_desc[__NR_socketcall], pre_socketcall_hook);
+	
+    /* start PIN */
 	PIN_StartProgram();
 
 	/* typically not reached; make the compiler happy */
