@@ -4,6 +4,7 @@
 #include <string.h>
 #include <errno.h>
 #include <sys/socket.h>
+#include <stdarg.h>
 
 #include "pin.H"
 #include "libdft_api.h"
@@ -15,6 +16,7 @@
 #include "libdft_core.h"
 
 static int debug = 0;
+static int log = 1;
 // Counters
 static ADDRINT lastWriteINS = 0;
 static ADDRINT lastWriteAddr = 0;
@@ -34,6 +36,18 @@ static VOID CanaryMemWrite(ADDRINT inst_addr, VOID * addr, INT32 size) {
     lastWriteINS = (ADDRINT)inst_addr;
     lastWriteAddr = (ADDRINT)addr;
     lastWriteSize = size;
+}
+
+static int sc_printf(const char* format, ...) {
+    va_list arg;
+    int done;
+    if (log) {
+        va_start(arg, format);
+        done = vfprintf(stdout,format, arg);
+        va_end(arg);
+        return done;
+    }
+    return 0;
 }
 
 /* test: assert the reg as tainted */
@@ -61,7 +75,7 @@ static VOID CanaryMemWriteAfter(ADDRINT inst_addr) {
     else {
         assert (0);
     }
-    printf("%x: %x, %d\n", inst_addr, lastWriteAddr, lastWriteSize);
+    sc_printf("%x: %x, %u\n", inst_addr, lastWriteAddr, lastWriteSize);
 }
 static void ins_inspect (INS ins, VOID *v) {
 
@@ -76,9 +90,9 @@ static void ins_inspect (INS ins, VOID *v) {
             if (INS_Disassemble(ins).find("gs:[0x14]") != std::string::npos) {
                 // canary
 			    if (debug) {
-                    printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
-                    printf("%x: %s\n", INS_Address(next), INS_Disassemble(next).c_str());
-                    printf("%d\n", INS_OperandReg(ins, (UINT32) 0));
+                    sc_printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
+                    sc_printf("%x: %s\n", INS_Address(next), INS_Disassemble(next).c_str());
+                    sc_printf("%d\n", INS_OperandReg(ins, (UINT32) 0));
                 }
                 /*
                  * Add callbacks to taint the stack memory
@@ -111,9 +125,9 @@ static void ins_inspect (INS ins, VOID *v) {
             if (INS_Disassemble(ins).find("gs:[0x14]") != std::string::npos) {
                 INS prev = INS_Prev(ins);
                 if (debug) {
-                    printf("%x: %s\n", INS_Address(prev), INS_Disassemble(prev).c_str());
-                    printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
-                    printf("%d\n", INS_OperandReg(prev, (UINT32) 0));
+                    sc_printf("%x: %s\n", INS_Address(prev), INS_Disassemble(prev).c_str());
+                    sc_printf("%x: %s\n", INS_Address(ins), INS_Disassemble(ins).c_str());
+                    sc_printf("%d\n", INS_OperandReg(prev, (UINT32) 0));
                 }
                 REG reg_dst = INS_OperandReg(prev, (UINT32) 0);
                 assert (INS_OperandReg(prev, 0) == INS_OperandReg(ins, 0));
@@ -134,7 +148,8 @@ pre_write_hook(syscall_ctx_t *ctx) {
      * ctx->arg[SYSCALL_ARG2]: num byte to print
      */
     if (tagmap_issetn(ctx->arg[SYSCALL_ARG1], ctx->arg[SYSCALL_ARG2])) {
-        printf("=====pre data leak detected=====\n");
+        sc_printf("=====pre data leak detected=====\n");
+        exit(1);
     }
 }
 
@@ -147,14 +162,14 @@ pre_writev_hook(syscall_ctx_t *ctx) {
         iov = ((struct iovec *)ctx->arg[SYSCALL_ARG1]) + i;
 
         if(tagmap_issetn((size_t)iov->iov_base, iov->iov_len)) {
-            printf("=====pre writev leak detected=====\n");
-            return;
+            sc_printf("=====pre writev leak detected=====\n");
+            exit(1);
         }
     }
 }
 static void 
 pre_socketcall_hook(syscall_ctx_t *ctx) {
-    int i;
+    uint32_t i;
     struct msghdr *msg;
     struct iovec *iov;
     /* args to the actual function is kept as the arg1 of socketcall syscall*/
@@ -162,8 +177,10 @@ pre_socketcall_hook(syscall_ctx_t *ctx) {
     switch ((int)ctx->arg[SYSCALL_ARG0]) {
         case SYS_SEND:
         case SYS_SENDTO:
-            if (tagmap_issetn(args[SYSCALL_ARG1], args[SYSCALL_ARG2]))
-                printf("=====pre socket send leak detected=====\n");
+            if (tagmap_issetn(args[SYSCALL_ARG1], args[SYSCALL_ARG2])) {
+                sc_printf("=====pre socket send leak detected=====\n");
+                exit(1);
+            }
             break;
 
         case SYS_SENDMSG:
@@ -173,8 +190,8 @@ pre_socketcall_hook(syscall_ctx_t *ctx) {
                 iov = &msg->msg_iov[i];
 
                 if (tagmap_issetn((size_t)iov->iov_base, (size_t)iov->iov_len)) {
-                    printf("=====pre socket sendmsg leak detected=====\n");
-                    break;
+                    sc_printf("=====pre socket sendmsg leak detected=====\n");
+                    exit(1);
                 }
             }
             break;
@@ -195,7 +212,8 @@ post_write_hook(syscall_ctx_t *ctx) {
      * (size_t)ctx->ret: number of bytes
      */
     if (tagmap_issetn(ctx->arg[SYSCALL_ARG1], ctx->arg[SYSCALL_ARG2])) {
-        printf("=====post data leak detected=====\n");
+        sc_printf("=====post data leak detected=====\n");
+        exit(1);
     }
 }
 

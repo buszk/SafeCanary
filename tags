@@ -12,9 +12,13 @@ ASSERT_FAST	src/tagmap.h	78;"	d
 BIT2BYTE	src/libdft_core.h	45;"	d
 BITMAP_SZ	src/tagmap.h	60;"	d
 BYTE_MASK	src/tagmap.h	62;"	d
+CC	tools/testcases/Makefile	/^CC=gcc$/;"	m
+CFLAGS	tools/testcases/Makefile	/^CFLAGS=-m32 -fstack-protector-all$/;"	m
 CLEAR_EFLAGS_AC	src/libdft_api.h	67;"	d
-DLIB_SUFF	tools/libdft-dta.c	61;"	d	file:
-DLIB_SUFF_ALT	tools/libdft-dta.c	62;"	d	file:
+CanaryMemWrite	tools/safe-canary.c	/^static VOID CanaryMemWrite(ADDRINT inst_addr, VOID * addr, INT32 size) {$/;"	f	file:
+CanaryMemWriteAfter	tools/safe-canary.c	/^static VOID CanaryMemWriteAfter(ADDRINT inst_addr) {$/;"	f	file:
+DLIB_SUFF	tools/libdft-dta.c	62;"	d	file:
+DLIB_SUFF_ALT	tools/libdft-dta.c	63;"	d	file:
 EFLAGS_DF	src/libdft_core.h	48;"	d
 GRP_NUM	src/libdft_api.h	64;"	d
 INSDFL_DISABLE	src/libdft_api.h	/^\/* #define *\/ INSDFL_DISABLE	= 1$/;"	e	enum:__anon3
@@ -23,7 +27,7 @@ IPC_FIX	src/syscall_desc.h	190;"	d
 KERN_VER	src/Makefile	/^KERN_VER=$(join $(word 1,$(KVER)),$(join $(word 2,$(KVER)),$(word 3,$(KVER))))$/;"	m
 KVER	src/Makefile	/^KVER=$(subst -, ,$(subst ., ,$(shell uname -r)))	# kernel version (temp)$/;"	m
 LIB	src/Makefile	/^LIB		= libdft.a$/;"	m
-LOGFILE_DFL	tools/libdft-dta.c	58;"	d	file:
+LOGFILE_DFL	tools/libdft-dta.c	59;"	d	file:
 LONG_MASK	src/tagmap.h	64;"	d
 MAP_8H_16	src/libdft_core.c	/^static uint32_t	MAP_8H_16[] = {0, 0, VCPU_MASK16};$/;"	v	file:
 MAP_8H_32	src/libdft_core.c	/^static uint32_t	MAP_8H_32[] = {0, 0, VCPU_MASK32};$/;"	v	file:
@@ -38,7 +42,7 @@ MEM_WORD_LEN	src/libdft_core.h	43;"	d
 MSGCTL	src/syscall_desc.h	187;"	d
 MSGRCV	src/syscall_desc.h	186;"	d
 OBJS	src/Makefile	/^OBJS		= libdft_api.o libdft_core.o syscall_desc.o tagmap.o$/;"	m
-OBJS	tools/Makefile	/^OBJS		= nullpin.o libdft.o libdft-dta.o$/;"	m
+OBJS	tools/Makefile	/^OBJS		= nullpin.o libdft.o libdft-dta.o safe-canary.o$/;"	m
 OP_0	src/libdft_core.h	/^\/* #define *\/ OP_0 = 0,			\/* 0th (1st) operand index *\/$/;"	e	enum:__anon8
 OP_1	src/libdft_core.h	/^\/* #define *\/ OP_1 = 1,			\/* 1st (2nd) operand index *\/$/;"	e	enum:__anon8
 OP_2	src/libdft_core.h	/^\/* #define *\/ OP_2 = 2,			\/* 2nd (3rd) operand index *\/$/;"	e	enum:__anon8
@@ -46,7 +50,7 @@ OP_3	src/libdft_core.h	/^\/* #define *\/ OP_3 = 3,			\/* 3rd (4th) operand index
 OP_4	src/libdft_core.h	/^\/* #define *\/ OP_4 = 4			\/* 4rd (5th) operand index *\/$/;"	e	enum:__anon8
 OS	src/Makefile	/^OS=$(shell uname -o | grep Linux$$)			# OS$/;"	m
 OS	tools/Makefile	/^OS=$(shell uname -o | grep Linux$$)			# OS$/;"	m
-PAGE_SZ	src/syscall_desc.h	213;"	d
+PAGE_SZ	src/syscall_desc.h	216;"	d
 QUAD_MASK	src/tagmap.h	65;"	d
 Q_GETFMT	src/syscall_desc.h	104;"	d
 Q_GETINFO	src/syscall_desc.h	105;"	d
@@ -77,22 +81,25 @@ SYSCALL_MAX	src/libdft_api.h	56;"	d
 SYSCALL_MAX	src/libdft_api.h	59;"	d
 SYSCALL_MAX	src/libdft_api.h	61;"	d
 SYS_ACCEPT	src/syscall_desc.h	199;"	d
-SYS_ACCEPT4	src/syscall_desc.h	207;"	d
+SYS_ACCEPT4	src/syscall_desc.h	210;"	d
 SYS_GETPEERNAME	src/syscall_desc.h	201;"	d
 SYS_GETSOCKNAME	src/syscall_desc.h	200;"	d
-SYS_GETSOCKOPT	src/syscall_desc.h	205;"	d
-SYS_RECV	src/syscall_desc.h	203;"	d
-SYS_RECVFROM	src/syscall_desc.h	204;"	d
-SYS_RECVMMSG	src/syscall_desc.h	209;"	d
-SYS_RECVMSG	src/syscall_desc.h	206;"	d
-SYS_SOCKET	tools/libdft-dta.c	55;"	d	file:
+SYS_GETSOCKOPT	src/syscall_desc.h	207;"	d
+SYS_RECV	src/syscall_desc.h	204;"	d
+SYS_RECVFROM	src/syscall_desc.h	206;"	d
+SYS_RECVMMSG	src/syscall_desc.h	212;"	d
+SYS_RECVMSG	src/syscall_desc.h	209;"	d
+SYS_SEND	src/syscall_desc.h	203;"	d
+SYS_SENDMSG	src/syscall_desc.h	208;"	d
+SYS_SENDTO	src/syscall_desc.h	205;"	d
+SYS_SOCKET	tools/libdft-dta.c	56;"	d	file:
 SYS_SOCKETPAIR	src/syscall_desc.h	202;"	d
 VCPU_MASK16	src/libdft_core.h	40;"	d
 VCPU_MASK32	src/libdft_core.h	39;"	d
 VCPU_MASK8	src/libdft_core.h	41;"	d
 VIRT2BIT	src/tagmap.h	75;"	d
 VIRT2BYTE	src/tagmap.h	72;"	d
-WORD_LEN	tools/libdft-dta.c	54;"	d	file:
+WORD_LEN	tools/libdft-dta.c	55;"	d	file:
 WORD_MASK	src/tagmap.h	63;"	d
 XQM_CMD	src/syscall_desc.h	108;"	d
 _3BYTE_MASK	src/tagmap.h	66;"	d
@@ -153,12 +160,14 @@ _xchg_r2r_opb_u	src/libdft_core.c	/^_xchg_r2r_opb_u(thread_ctx_t *thread_ctx, ui
 _xchg_r2r_opb_ul	src/libdft_core.c	/^_xchg_r2r_opb_ul(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
 _xchg_r2r_opw	src/libdft_core.c	/^_xchg_r2r_opw(thread_ctx_t *thread_ctx, uint32_t dst, uint32_t src)$/;"	f	file:
 alert	tools/libdft-dta.c	/^alert(ADDRINT ins, ADDRINT bt)$/;"	f	file:
+another_hello	tools/testcases/write.c	/^void another_hello() {$/;"	f
 arg	src/libdft_api.h	/^	ADDRINT arg[SYSCALL_ARG_NUM];	\/* arguments *\/$/;"	m	struct:__anon5
 array	src/syscall_desc.h	/^	unsigned short	*array;$/;"	m	union:semun
 assert_mem16	tools/libdft-dta.c	/^assert_mem16(ADDRINT paddr, ADDRINT taddr)$/;"	f	file:
 assert_mem32	tools/libdft-dta.c	/^assert_mem32(ADDRINT paddr, ADDRINT taddr)$/;"	f	file:
 assert_reg16	tools/libdft-dta.c	/^assert_reg16(thread_ctx_t *thread_ctx, uint32_t reg, uint32_t addr)$/;"	f	file:
 assert_reg32	tools/libdft-dta.c	/^assert_reg32(thread_ctx_t *thread_ctx, uint32_t reg, uint32_t addr)$/;"	f	file:
+assert_reg32_tainted	tools/safe-canary.c	/^assert_reg32_tainted(thread_ctx_t *thread_ctx, uint32_t reg) {$/;"	f	file:
 aux	src/libdft_api.h	/^	void	*aux;			\/* auxiliary data (processor state) *\/$/;"	m	struct:__anon5
 bitmap	src/tagmap.c	/^uint8_t *bitmap = NULL;$/;"	v
 blob	src/syscall_desc.h	/^	unsigned long blob[128 \/ sizeof(long)];$/;"	m	struct:getcpu_cache
@@ -195,6 +204,7 @@ d_rtbcount	src/syscall_desc.h	/^	__u64	d_rtbcount;$/;"	m	struct:fs_disk_quota
 d_rtbtimer	src/syscall_desc.h	/^	__s32	d_rtbtimer;$/;"	m	struct:fs_disk_quota
 d_rtbwarns	src/syscall_desc.h	/^	__u16	d_rtbwarns;$/;"	m	struct:fs_disk_quota
 d_version	src/syscall_desc.h	/^	__s8	d_version;$/;"	m	struct:fs_disk_quota
+debug	tools/safe-canary.c	/^static int debug = 0;$/;"	v	file:
 dflact	src/libdft_api.h	/^	size_t	dflact;                 \/* default instrumentation predicate *\/$/;"	m	struct:__anon7
 dqb_bhardlimit	src/syscall_desc.h	/^	__u64 dqb_bhardlimit;$/;"	m	struct:if_dqblk
 dqb_bsoftlimit	src/syscall_desc.h	/^	__u64 dqb_bsoftlimit;$/;"	m	struct:if_dqblk
@@ -232,9 +242,13 @@ ins_clr_pre	src/libdft_api.c	/^ins_clr_pre(ins_desc_t *desc)$/;"	f
 ins_desc	src/libdft_api.c	/^ins_desc_t ins_desc[XED_ICLASS_LAST];$/;"	v
 ins_desc_t	src/libdft_api.h	/^} ins_desc_t;$/;"	t	typeref:struct:__anon7
 ins_inspect	src/libdft_core.c	/^ins_inspect(INS ins)$/;"	f
+ins_inspect	tools/safe-canary.c	/^static void ins_inspect (INS ins, VOID *v) {$/;"	f	file:
 ins_set_dflact	src/libdft_api.c	/^ins_set_dflact(ins_desc_t *desc, size_t action)$/;"	f
 ins_set_post	src/libdft_api.c	/^ins_set_post(ins_desc_t *desc, void (* post)(INS))$/;"	f
 ins_set_pre	src/libdft_api.c	/^ins_set_pre(ins_desc_t *desc, void (* pre)(INS))$/;"	f
+lastWriteAddr	tools/safe-canary.c	/^static ADDRINT lastWriteAddr = 0;$/;"	v	file:
+lastWriteINS	tools/safe-canary.c	/^static ADDRINT lastWriteINS = 0;$/;"	v	file:
+lastWriteSize	tools/safe-canary.c	/^static UINT32 lastWriteSize = 0;$/;"	v	file:
 libdft_die	src/libdft_api.c	/^libdft_die(void)$/;"	f
 libdft_init	src/libdft_api.c	/^libdft_init(ADDRINT version_mask)$/;"	f
 likely	src/branch_pred.h	37;"	d
@@ -258,6 +272,9 @@ m2r_xfer_opw	src/libdft_core.c	/^m2r_xfer_opw(thread_ctx_t *thread_ctx, uint32_t
 main	tools/libdft-dta.c	/^main(int argc, char **argv)$/;"	f
 main	tools/libdft.c	/^main(int argc, char **argv)$/;"	f
 main	tools/nullpin.c	/^main(int argc, char **argv)$/;"	f
+main	tools/safe-canary.c	/^int main (int argc, char **argv) {$/;"	f
+main	tools/testcases/socket.c	/^int main(int argc, char const *argv[]) {$/;"	f
+main	tools/testcases/write.c	/^int main(int argc, char ** argv) {$/;"	f
 map_args	src/syscall_desc.h	/^	size_t	map_args[SYSCALL_ARG_NUM];	\/* arguments map *\/$/;"	m	struct:__anon1
 nargs	src/syscall_desc.h	/^	size_t	nargs;				\/* number of arguments *\/$/;"	m	struct:__anon1
 nr	src/libdft_api.h	/^	int 	nr;			\/* syscall number *\/$/;"	m	struct:__anon5
@@ -301,8 +318,12 @@ post_rt_sigpending_hook	src/syscall_desc.c	/^post_rt_sigpending_hook(syscall_ctx
 post_socketcall_hook	src/syscall_desc.c	/^post_socketcall_hook(syscall_ctx_t *ctx)$/;"	f	file:
 post_socketcall_hook	tools/libdft-dta.c	/^post_socketcall_hook(syscall_ctx_t *ctx)$/;"	f	file:
 post_syslog_hook	src/syscall_desc.c	/^post_syslog_hook(syscall_ctx_t *ctx)$/;"	f	file:
+post_write_hook	tools/safe-canary.c	/^post_write_hook(syscall_ctx_t *ctx) {$/;"	f	file:
 pre	src/libdft_api.h	/^	void	(* pre)(INS ins);	\/* pre-ins instrumentation callback *\/$/;"	m	struct:__anon7
 pre	src/syscall_desc.h	/^	void	(* pre)(syscall_ctx_t*);	\/* pre-syscall callback *\/$/;"	m	struct:__anon1
+pre_socketcall_hook	tools/safe-canary.c	/^pre_socketcall_hook(syscall_ctx_t *ctx) {$/;"	f	file:
+pre_write_hook	tools/safe-canary.c	/^pre_write_hook(syscall_ctx_t *ctx) {$/;"	f	file:
+pre_writev_hook	tools/safe-canary.c	/^pre_writev_hook(syscall_ctx_t *ctx) {$/;"	f	file:
 qfs_ino	src/syscall_desc.h	/^	__u64 qfs_ino;$/;"	m	struct:fs_qfilestat
 qfs_nblks	src/syscall_desc.h	/^	__u64 qfs_nblks;$/;"	m	struct:fs_qfilestat
 qfs_nextents	src/syscall_desc.h	/^	__u32 qfs_nextents;$/;"	m	struct:fs_qfilestat
