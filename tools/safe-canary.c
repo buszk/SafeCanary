@@ -31,12 +31,7 @@ extern ins_desc_t ins_desc[XED_ICLASS_LAST];
 /* syscall descriptors */
 extern syscall_desc_t syscall_desc[SYSCALL_MAX];
 
-/* Record current write */
-static VOID CanaryMemWrite(ADDRINT inst_addr, VOID * addr, INT32 size) {
-    lastWriteINS = (ADDRINT)inst_addr;
-    lastWriteAddr = (ADDRINT)addr;
-    lastWriteSize = size;
-}
+
 
 static int sc_printf(const char* format, ...) {
     va_list arg;
@@ -50,12 +45,11 @@ static int sc_printf(const char* format, ...) {
     return 0;
 }
 
-/* test: assert the reg as tainted */
-static VOID PIN_FAST_ANALYSIS_CALL
-assert_reg32_tainted(thread_ctx_t *thread_ctx, uint32_t reg) {
-    assert(thread_ctx->vcpu.gpr[reg]);
-}
-static VOID CanaryMemWriteAfter(ADDRINT inst_addr) {
+/* Record current write */
+static VOID CanaryMemWrite(ADDRINT inst_addr, VOID * addr, INT32 size) {
+    lastWriteINS = (ADDRINT)inst_addr;
+    lastWriteAddr = (ADDRINT)addr;
+    lastWriteSize = size;
     /* Mark the Write location tainted */
     if (lastWriteINS == inst_addr) {
         if (lastWriteSize == 4) {
@@ -76,6 +70,13 @@ static VOID CanaryMemWriteAfter(ADDRINT inst_addr) {
         assert (0);
     }
     sc_printf("%x: %x, %u\n", inst_addr, lastWriteAddr, lastWriteSize);
+}
+
+
+/* test: assert the reg as tainted */
+static VOID PIN_FAST_ANALYSIS_CALL
+assert_reg32_tainted(thread_ctx_t *thread_ctx, uint32_t reg) {
+    assert(thread_ctx->vcpu.gpr[reg]);
 }
 static void ins_inspect (INS ins, VOID *v) {
 
@@ -100,17 +101,12 @@ static void ins_inspect (INS ins, VOID *v) {
                  * The second insert call that verifies the Mem write succeed
                  *     and taint the memory range.
                  */
-                INS_InsertCall(
+                INS_InsertPredicatedCall(
                         INS_Next(ins), IPOINT_BEFORE, (AFUNPTR)CanaryMemWrite,
                         IARG_INST_PTR,
                         IARG_MEMORYWRITE_PTR,
                         IARG_MEMORYWRITE_SIZE,
                         IARG_END);
-
-                INS_InsertCall(
-                        INS_Next(ins), IPOINT_AFTER, (AFUNPTR)CanaryMemWriteAfter,
-                        IARG_INST_PTR,
-                        IARG_END); 
             }
             return;
         }
@@ -201,21 +197,6 @@ pre_socketcall_hook(syscall_ctx_t *ctx) {
     }
 }
 
-static void 
-post_write_hook(syscall_ctx_t *ctx) {
-    
-    /* Optimize the branch if the write is not success */
-    if (unlikely((long)ctx->ret <= 0))
-        return;
-    /* 
-     * ctx->arg[SYSCALL_ARG1]: print buffer 
-     * (size_t)ctx->ret: number of bytes
-     */
-    if (tagmap_issetn(ctx->arg[SYSCALL_ARG1], ctx->arg[SYSCALL_ARG2])) {
-        sc_printf("=====post data leak detected=====\n");
-        exit(1);
-    }
-}
 
 
 /*
@@ -246,9 +227,6 @@ int main (int argc, char **argv) {
 
     /* write(2) */
     (void)syscall_set_pre(&syscall_desc[__NR_write], pre_write_hook);
-    if (debug) {
-        (void)syscall_set_post(&syscall_desc[__NR_write], post_write_hook);
-    }
 
     /* writev(2) */
     (void)syscall_set_pre(&syscall_desc[__NR_writev], pre_writev_hook);
