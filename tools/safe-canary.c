@@ -16,7 +16,7 @@
 #include "libdft_core.h"
 
 static int debug = 0;
-static int log = 1;
+static int log = 0;
 // Counters
 static ADDRINT lastWriteINS = 0;
 static ADDRINT lastWriteAddr = 0;
@@ -72,7 +72,14 @@ static VOID CanaryMemWrite(ADDRINT inst_addr, VOID * addr, INT32 size) {
     sc_printf("%x: %x, %u\n", inst_addr, lastWriteAddr, lastWriteSize);
 }
 
-
+/* Record current read */
+static VOID MemRead(ADDRINT inst_addr, VOID * addr, INT32 size) {
+    // check taint map
+    if (tagmap_issetn((ADDRINT)addr, size)) {
+       dprintf(2, "=====Anomaly Detected=====\nADDR: %p, Loc: %p, size, %d\n", (void *)inst_addr, addr, size); 
+       exit(1);
+    }
+}
 /* test: assert the reg as tainted */
 static VOID PIN_FAST_ANALYSIS_CALL
 assert_reg32_tainted(thread_ctx_t *thread_ctx, uint32_t reg) {
@@ -80,11 +87,11 @@ assert_reg32_tainted(thread_ctx_t *thread_ctx, uint32_t reg) {
 }
 static void ins_inspect (INS ins, VOID *v) {
 
+    INS next = INS_Next(ins);
 	/* find all mov instruction */
 
 	if (INS_IsMov(ins)) {
         /* find all canary setup */
-        INS next = INS_Next(ins);
         if (INS_RegRContain(ins, REG_SEG_GS) && INS_IsMemoryRead(ins) && INS_IsStackWrite(INS_Next(ins))) {
             // possible canary
             // TODO: optimize with bit op
@@ -110,7 +117,19 @@ static void ins_inspect (INS ins, VOID *v) {
             }
             return;
         }
-    }        
+        
+    }
+
+    if (INS_IsMemoryRead(ins) && 
+            !(INS_IsMov(ins) && (xed_iclass_enum_t)INS_Opcode(next) == XED_ICLASS_XOR && INS_RegRContain(next, REG_SEG_GS)) ){
+        INS_InsertPredicatedCall(
+                ins, IPOINT_BEFORE, (AFUNPTR)MemRead,
+                IARG_INST_PTR,
+                IARG_MEMORYREAD_PTR,
+                IARG_MEMORYREAD_SIZE,
+                IARG_END
+                );
+    }
 
     if (!debug) return;
 
@@ -143,7 +162,7 @@ pre_write_hook(syscall_ctx_t *ctx) {
      * ctx->arg[SYSCALL_ARG1]: print buffer 
      * ctx->arg[SYSCALL_ARG2]: num byte to print
      */
-    if (tagmap_issetn(ctx->arg[SYSCALL_ARG1], ctx->arg[SYSCALL_ARG2])) {
+    if (tagmap_issetn(ctx->arg[SYSCALL_ARG2], ctx->arg[SYSCALL_ARG2])) {
         sc_printf("=====pre data leak detected=====\n");
         exit(1);
     }
@@ -173,7 +192,7 @@ pre_socketcall_hook(syscall_ctx_t *ctx) {
     switch ((int)ctx->arg[SYSCALL_ARG0]) {
         case SYS_SEND:
         case SYS_SENDTO:
-            if (tagmap_issetn(args[SYSCALL_ARG1], args[SYSCALL_ARG2])) {
+            if (tagmap_issetn(args[SYSCALL_ARG2], args[SYSCALL_ARG2])) {
                 sc_printf("=====pre socket send leak detected=====\n");
                 exit(1);
             }

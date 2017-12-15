@@ -6,7 +6,7 @@ int main(int argc, char** args) {
     for (int i = 0; i < 10; i++ ) {
         list[i] = i;
     }
-    for (int i = 0; i < 12; i++ ) {
+    for (int i = 0; i < 10; i++ ) {
         printf("%p\n", list[i]);
     }
 }
